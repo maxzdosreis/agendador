@@ -13,73 +13,75 @@ include_once('db/conexao.php');
         <input type="submit" name="Pesquisar">
     </form>
 </div>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>Endereço</th>
-            <th>Sexo</th>
-            <th>Data de Nasc.</th>
-            <th>Editar</th>
-            <th>Excluir</th>
-        </tr>
-    </thead>
-    <?php 
+<div class="tabela">
+    <table class="table table-dark table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Sexo</th>
+                <th>Data de Nasc.</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <?php 
 
-    $quantidade = 10;
+        $quantidade = 10;
 
-    $pagina = (isset($_GET['pagina']))? (int)$_GET['pagina'] : 1;
+        $pagina = (isset($_GET['pagina']))? (int)$_GET['pagina'] : 1;
 
-    $inicio = ($quantidade * $pagina) - $quantidade;
+        $inicio = ($quantidade * $pagina) - $quantidade;
 
-    $txt_pesquisa = (isset($_POST['txt_pesquisa'])) ? $_POST['txt_pesquisa'] : '';
+        $txt_pesquisa = (isset($_POST['txt_pesquisa'])) ? $_POST['txt_pesquisa'] : '';
 
-    $sql = "
-            SELECT
-                idContato,
-                upper(nomeContato) as nomeContato,
-                lower(emailContato) as emailContato,
-                telefoneContato,
-                upper(enderecoContato) as enderecoContato,
-                CASE
-                    WHEN sexoContato='F' THEN 'FEMININO'
-                    WHEN sexoContato='M' THEN 'MASCULINO'
-                ELSE
-                    'NÃO ESPECIFICADO'
-                END AS sexoContato,
-                DATE_FORMAT(dataNascContato, '%d/%m/%Y') as dataNascContato
-            FROM tbcontatos
-            WHERE 
-            idContato = '{$txt_pesquisa}'
-            OR nomeContato LIKE '%{$txt_pesquisa}%'
-            ORDER BY nomeContato ASC
-            LIMIT $inicio, $quantidade
-        ";
-    $result = mysqli_query($conexao,$sql) or die ("Erro ao executar a consulta!" . mysqli_error($conexao));
-    // Percorre linha por linha, e guarda os dados
-    while($dados = mysqli_fetch_assoc($result)) {
-    ?>
-    <tbody>
-        <tr>
-            <td><?=$dados['idContato']?></td>
-            <td><?=$dados['nomeContato']?></td>
-            <td><?=$dados['emailContato']?></td>
-            <td><?=$dados['telefoneContato']?></td>
-            <td><?=$dados['enderecoContato']?></td>
-            <td><?=$dados['sexoContato']?></td>
-            <td><?=$dados['dataNascContato']?></td>
-            <td><a href="index.php?menuop=editar-contato&idContato=<?=$dados['idContato']?>">Editar</a></td>
-            <td><a href="index.php?menuop=excluir-contato&idContato=<?=$dados['idContato']?>">Excluir</a></td>
-        </tr>
-    </tbody>
-    <?php  
-    }
-    ?>
-</table>
-<br>
+        $sql = "
+                SELECT
+                    idContato,
+                    upper(nomeContato) as nomeContato,
+                    lower(emailContato) as emailContato,
+                    telefoneContato,
+                    upper(enderecoContato) as enderecoContato,
+                    CASE
+                        WHEN sexoContato='F' THEN 'FEMININO'
+                        WHEN sexoContato='M' THEN 'MASCULINO'
+                    ELSE
+                        'NÃO ESPECIFICADO'
+                    END AS sexoContato,
+                    DATE_FORMAT(dataNascContato, '%d/%m/%Y') as dataNascContato
+                FROM tbcontatos
+                WHERE 
+                idContato = '{$txt_pesquisa}'
+                OR nomeContato LIKE '%{$txt_pesquisa}%'
+                ORDER BY nomeContato ASC
+                LIMIT $inicio, $quantidade
+            ";
+        $result = mysqli_query($conexao,$sql) or die ("Erro ao executar a consulta!" . mysqli_error($conexao));
+        // Percorre linha por linha, e guarda os dados
+        while($dados = mysqli_fetch_assoc($result)) {
+        ?>
+        <tbody>
+            <tr>
+                <td><?=$dados['idContato']?></td>
+                <td><?=$dados['nomeContato']?></td>
+                <td><?=$dados['emailContato']?></td>
+                <td><?=$dados['telefoneContato']?></td>
+                <td><?=$dados['enderecoContato']?></td>
+                <td><?=$dados['sexoContato']?></td>
+                <td><?=$dados['dataNascContato']?></td>
+                <td><a href="index.php?menuop=editar-contato&idContato=<?=$dados['idContato']?>">Editar</a></td>
+                <td><a href="index.php?menuop=excluir-contato&idContato=<?=$dados['idContato']?>">Excluir</a></td>
+            </tr>
+        </tbody>
+        <?php  
+        }
+        ?>
+    </table>
+</div>
+
 <?php  
 
 $sqlTotal = "SELECT idContato FROM tbcontatos";
