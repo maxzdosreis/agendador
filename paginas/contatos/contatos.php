@@ -1,3 +1,6 @@
+<?php 
+include_once('db/conexao.php');
+?>
 <header>
     <h3>Contatos</h3>
 </header>
