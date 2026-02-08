@@ -7,6 +7,12 @@ include_once('db/conexao.php');
 <div>
     <a href="index.php?menuop=cad-contato">Novo Contato</a>
 </div>
+<div>
+    <form action="index.php?menuop=contatos" method="post">
+        <input type="text" name="txt_pesquisa">
+        <input type="submit" name="Pesquisar">
+    </form>
+</div>
 <table border="1">
     <thead>
         <tr>
@@ -22,6 +28,8 @@ include_once('db/conexao.php');
         </tr>
     </thead>
     <?php 
+    $txt_pesquisa = (isset($_POST['txt_pesquisa'])) ? $_POST['txt_pesquisa'] : '';
+
     $sql = "
             SELECT
                 idContato,
@@ -37,6 +45,10 @@ include_once('db/conexao.php');
                 END AS sexoContato,
                 DATE_FORMAT(dataNascContato, '%d/%m/%Y') as dataNascContato
             FROM tbcontatos
+            WHERE 
+            idContato = '{$txt_pesquisa}'
+            OR nomeContato LIKE '%{$txt_pesquisa}%'
+            ORDER BY nomeContato ASC
            ";
     $result = mysqli_query($conexao,$sql) or die ("Erro ao executar a consulta!" . mysqli_error($conexao));
     // Percorre linha por linha, e guarda os dados
