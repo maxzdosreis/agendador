@@ -66,7 +66,7 @@ include_once('db/conexao.php');
         <tbody>
             <tr>
                 <td><?=$dados['idContato']?></td>
-                <td><?=$dados['nomeContato']?></td>
+                <td class="text-nowrap"><?=$dados['nomeContato']?></td>
                 <td><?=$dados['emailContato']?></td>
                 <td><?=$dados['telefoneContato']?></td>
                 <td><?=$dados['enderecoContato']?></td>
@@ -82,36 +82,37 @@ include_once('db/conexao.php');
     </table>
 </div>
 
+<ul class="pagination justify-content-center">
 <?php  
-
 $sqlTotal = "SELECT idContato FROM tbcontatos";
 $resultTotal = mysqli_query($conexao,$sqlTotal) or die ("Não foi possível realizar a consulta no banco de dados ". mysqli_error($conexao));
 $numTotal = mysqli_num_rows($resultTotal);
 $totalPagina = ceil($numTotal/$quantidade);
-echo "Total de registros: $numTotal <br>";
-echo '<a href="?menuop=contatos&pagina=1">Primeira Página</a>';
+echo "<li class='page-item'><span class='page-link'>Total de registros: " . $numTotal . " </span></li>";
+echo '<li class="page-item"><a class="page-link" href="?menuop=contatos&pagina=1">Primeira Página</a></li>';
 
 if($pagina>6) {
     ?>
-        <a href="?menuop=contatos&pagina=<?php echo $pagina - 1?>"> << </a>
+        <li class="page-item"><a class="page-link" href="?menuop=contatos&pagina=<?php echo $pagina - 1?>"> << </a></li>
     <?php
 }
 
 for($i = 1; $i<=$totalPagina; $i++) {
     if($i>=($pagina-5) && $i<($pagina+5)) {
         if($i== $pagina) {
-            echo $i;
+            echo "<li class='page-item active'><span class='page-link'>$i</span></li>";
         } else {
-            echo "<a href=\"?menuop=contatos&pagina=$i\">$i</a>  ";
+            echo "<li class='page-item'><a class='page-link' href=\"?menuop=contatos&pagina={$i}\">{$i}</a></li>  ";
         }
     }
 }
 
 if($pagina < ($totalPagina-5)) {
     ?>
-        <a href="?menuop=contatos&pagina=<?php echo $pagina + 1?>"> >> </a>
+        <li class="page-item"><a class="page-link" href="?menuop=contatos&pagina=<?php echo $pagina + 1?>"> >> </a></li>
     <?php
 }
 
-echo "<a href=\"?menuop=contatos&pagina=$totalPagina\">Última Página</a>";
+echo "<li class='page-item'><a class='page-link' href=\"?menuop=contatos&pagina=$totalPagina\">Última Página</a></li>";
 ?>
+</ul>
