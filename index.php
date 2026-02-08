@@ -39,6 +39,9 @@ include_once('db/conexao.php');
                 case 'editar-contato':
                     include('paginas/contatos/editar-contato.php');
                     break;
+                case 'excluir-contato':
+                    include('paginas/contatos/excluir-contato.php');
+                    break;
                 case 'atualizar-contato':
                     include('paginas/contatos/atualizar-contato.php');
                     break;
