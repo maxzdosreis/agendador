@@ -1,5 +1,5 @@
-<?php 
-include('db/conexao.php');
+<?php
+include_once('db/conexao.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
