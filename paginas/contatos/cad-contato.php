@@ -16,6 +16,10 @@
             <input type="text" name="telefoneContato" placeholder="Telefone...">
         </div>
         <div>
+            <label for="enderecoContato">Endereço</label>
+            <input type="text" name="enderecoContato" placeholder="Endereço...">
+        </div>
+        <div>
             <label for="sexoContato">Nome</label>
             <select name="sexoContato" required>
                 <option value="M">Masculino</option>
