@@ -19,6 +19,7 @@ include('db/conexao.php');
         </nav>
     </header>
     <main>
+        <hr>
         <?php  
             $menuop = (isset($_GET['menuop']))? $_GET['menuop']: 'home';
             switch($menuop) {
