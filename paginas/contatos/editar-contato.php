@@ -9,7 +9,7 @@ $dados = mysqli_fetch_assoc($result);
 ?>
 
 <header>
-    <h3>Editar Contato</h3>
+    <h3><i class="bi bi-pencil"></i> Editar Contato</h3>
 </header>
 
 <div>

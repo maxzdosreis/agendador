@@ -1,5 +1,5 @@
 <header>
-    <h3>Cadastro de Contato</h3>
+    <h3><i class="bi bi-person-square"></i> Cadastro de Contato</h3>
 </header>
 <div>
     <form action="paginas/contatos/inserir-contato.php" method="POST">
